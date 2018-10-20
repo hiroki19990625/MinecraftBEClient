@@ -5,18 +5,33 @@ import itsu.java.minecraftbeclient.utils.Version;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Point3D;
 import javafx.scene.*;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.*;
+import javafx.scene.text.*;
 import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    static double initX;
-    static double initY;
-    final double strength = 0.1;
+    private static double initX;
+    private static double initY;
+
+    private static double radiusX;
+    private static double radiusY;
+
+    private Rotate rotateX;
+    private Rotate rotateY;
+    private Translate translate;
+
+    private final double strength = 0.2;
+    private final int speed = 7;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -24,6 +39,8 @@ public class Main extends Application {
         TextureManager.init();
 
         Level level = new Level("Test");
+
+        Scene scene = new Scene(level, 1024, 768, true, SceneAntialiasing.BALANCED);
 
         Stop[] stops = new Stop[]{
                 new Stop(0, Color.WHITE),
@@ -33,43 +50,41 @@ public class Main extends Application {
 
         LinearGradient sky = new LinearGradient(0, 400, 0, 0, false, CycleMethod.NO_CYCLE, stops);
 
-        Scene scene = new Scene(level, 320, 320, true, SceneAntialiasing.BALANCED);
         scene.setFill(sky);
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setTranslateZ(-100);
         camera.setTranslateX(500);
-        camera.setFarClip(1000);
+        camera.setFarClip(10000);
+
+        camera.getTransforms().addAll(
+                rotateX = new Rotate(0.0, Rotate.X_AXIS),
+                rotateY = new Rotate(0.0, Rotate.Y_AXIS),
+                translate = new Translate(5, -5, -15)
+        );
+
         scene.setCamera(camera);
 
-        Rotate rotateY = new Rotate(0.0, Rotate.Y_AXIS);
-        Rotate rotateX = new Rotate(0.0, Rotate.X_AXIS);
         level.getTransforms().addAll(rotateX, rotateY);
 
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.W) {
-                camera.setTranslateZ(camera.getTranslateZ() + 1);
-                camera.setTranslateZ(camera.getTranslateZ() + 1);
+                translate.setZ(translate.getZ() + speed);
 
             } else if (e.getCode() == KeyCode.S) {
-                camera.setTranslateZ(camera.getTranslateZ() - 1);
-                camera.setTranslateZ(camera.getTranslateZ() - 1);
+                translate.setZ(translate.getZ() - speed);
 
             } else if (e.getCode() == KeyCode.D) {
-                camera.setTranslateX(camera.getTranslateX() + 1);
-                camera.setTranslateX(camera.getTranslateX() + 1);
+                translate.setX(translate.getX() + speed);
 
             } else if (e.getCode() == KeyCode.A) {
-                camera.setTranslateX(camera.getTranslateX() - 1);
-                camera.setTranslateX(camera.getTranslateX() - 1);
+                translate.setX(translate.getX() - speed);
 
             } else if (e.getCode() == KeyCode.SHIFT) {
-                camera.setTranslateY(camera.getTranslateY() + 1);
-                camera.setTranslateY(camera.getTranslateY() + 1);
+                translate.setY(translate.getY() + speed);
 
             } else if (e.getCode() == KeyCode.SPACE) {
-                camera.setTranslateY(camera.getTranslateY() - 1);
-                camera.setTranslateY(camera.getTranslateY() - 1);
+                translate.setY(translate.getY() - speed);
 
             }
         });
@@ -80,6 +95,9 @@ public class Main extends Application {
                     public void handle(MouseEvent event) {
                         initX = event.getSceneX();
                         initY = event.getSceneY();
+
+                        radiusX = rotateX.getAngle();
+                        radiusY = rotateY.getAngle();
                     }
                 }
         );
@@ -90,22 +108,31 @@ public class Main extends Application {
                     public void handle(MouseEvent event) {
                         double x = event.getSceneX();
                         double y = event.getSceneY();
-                        rotateX.setAngle(rotateX.getAngle() + (y - initY) * strength);
-                        rotateY.setAngle(rotateY.getAngle() + (initX - x) * strength);
 
-                        initX = x;
-                        initY = y;
+                        rotateX.setAngle(radiusX -= (initY - y) * strength);
+                        rotateY.setAngle(radiusY -= (initX - x) * strength);
+
+                        initX = event.getSceneX();
+                        initY = event.getSceneY();
                     }
                 }
 
         );
 
+
+
         primaryStage.setTitle("MinecraftBE Client v" + Version.VERSION + " - " + level.getName());
         primaryStage.setScene(scene);
+        primaryStage.setMaximized(true);
         primaryStage.show();
     }
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    protected double getRadian(double x, double y, double x2, double y2) {
+        double radian = Math.atan2(y2 - y,x2 - x);
+        return radian;
     }
 }
