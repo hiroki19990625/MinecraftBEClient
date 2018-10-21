@@ -18,6 +18,8 @@ public class TextureManager {
     private static void registerBlocks() {
         textures.add(BlockID.AIR, new Texture("air.png"));
         textures.add(BlockID.STONE, new Texture("stone.png"));
+        textures.add(BlockID.GRASS, new Texture("grass.png"));
+        textures.add(BlockID.DIRT, new Texture("dirt.jpg"));
         textures.add(BlockID.SAND, new Texture("dirt.jpg"));
     }
 

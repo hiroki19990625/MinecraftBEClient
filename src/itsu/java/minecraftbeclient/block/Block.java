@@ -1,5 +1,9 @@
 package itsu.java.minecraftbeclient.block;
 
+import itsu.java.minecraftbeclient.block.blocks.Dirt;
+import itsu.java.minecraftbeclient.block.blocks.Sand;
+import itsu.java.minecraftbeclient.block.blocks.Stone;
+import itsu.java.minecraftbeclient.core.GameServer;
 import itsu.java.minecraftbeclient.core.TextureManager;
 import itsu.java.minecraftbeclient.event.EventManager;
 import itsu.java.minecraftbeclient.level.Level;
@@ -13,9 +17,10 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.shape.Box;
 import javafx.util.Duration;
 
-public abstract class Block extends Box {
+public class Block extends Box {
 
     private int id;
+    private int meta;
     private double x;
     private double y;
     private double z;
@@ -25,12 +30,15 @@ public abstract class Block extends Box {
     private Texture texture;
     private Level level;
 
-    public abstract boolean isFallable();
+    public Block(int id, int meta, String name, Level level) {
+        this(id, meta, 0, 0, 0, name, level);
+    }
 
-    public Block(int id, double x, double y, double z, String name, Level level) {
+    public Block(int id, int meta, double x, double y, double z, String name, Level level) {
         super(10, 10, 10);
 
         this.id = id;
+        this.meta = meta;
         this.x = x;
         this.y = y;
         this.z = z;
@@ -53,11 +61,32 @@ public abstract class Block extends Box {
         });
     }
 
+    public static Block get(int id, int meta) {
+        switch (GameServer.getBlockNameFromIdAndMeta(id, meta)) {
+            case "air": {
+                return new Block(id, meta, GameServer.getBlockNameFromIdAndMeta(id, meta), GameServer.getLevel());
+            }
+
+            case "stone": {
+                return new Stone();
+            }
+
+            case "sand": {
+                return new Sand();
+            }
+
+            case "dirt": {
+                return new Dirt();
+            }
+        }
+        return new Block(id, meta, GameServer.getBlockNameFromIdAndMeta(id, meta), GameServer.getLevel());
+    }
+
     private void startTick() {
         Timeline timer = new Timeline(new KeyFrame(Duration.millis(100), new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
-                if (isFallable()) {
+                if (Block.this instanceof Fallable) {
                     level.removeBlock(Block.this);
 
                     setY(Block.this.getY() + 1);
@@ -100,12 +129,20 @@ public abstract class Block extends Box {
         this.setTranslateZ(z * 10);
     }
 
+    public void setLevel(Level level) {
+        this.level = level;
+    }
+
     public int getBlockId() {
         return id;
     }
 
     public String getName() {
         return name;
+    }
+
+    public int getMeta() {
+        return meta;
     }
 
 
