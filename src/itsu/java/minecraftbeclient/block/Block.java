@@ -4,7 +4,6 @@ import itsu.java.minecraftbeclient.block.blocks.Dirt;
 import itsu.java.minecraftbeclient.block.blocks.Sand;
 import itsu.java.minecraftbeclient.block.blocks.Stone;
 import itsu.java.minecraftbeclient.core.GameServer;
-import itsu.java.minecraftbeclient.core.TextureManager;
 import itsu.java.minecraftbeclient.event.EventManager;
 import itsu.java.minecraftbeclient.level.Level;
 import itsu.java.minecraftbeclient.utils.Texture;
@@ -44,7 +43,7 @@ public class Block extends Box {
         this.z = z;
         this.name = name;
         this.level = level;
-        this.texture = TextureManager.getTexture(id);
+        this.texture = BlockManager.getTexture(id);
 
         this.setRotationAxis(new Point3D(0, 1, 0));
         this.setMaterial(texture);
@@ -62,9 +61,9 @@ public class Block extends Box {
     }
 
     public static Block get(int id, int meta) {
-        switch (GameServer.getBlockNameFromIdAndMeta(id, meta)) {
+        switch (BlockManager.getBlockNameFromIdAndMeta(id, meta)) {
             case "air": {
-                return new Block(id, meta, GameServer.getBlockNameFromIdAndMeta(id, meta), GameServer.getLevel());
+                return new Block(id, meta, BlockManager.getBlockNameFromIdAndMeta(id, meta), GameServer.getLevel());
             }
 
             case "stone": {
@@ -79,7 +78,7 @@ public class Block extends Box {
                 return new Dirt();
             }
         }
-        return new Block(id, meta, GameServer.getBlockNameFromIdAndMeta(id, meta), GameServer.getLevel());
+        return new Block(id, meta, BlockManager.getBlockNameFromIdAndMeta(id, meta), GameServer.getLevel());
     }
 
     private void startTick() {

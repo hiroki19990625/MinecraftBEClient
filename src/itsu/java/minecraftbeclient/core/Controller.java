@@ -1,5 +1,6 @@
 package itsu.java.minecraftbeclient.core;
 
+import itsu.java.minecraftbeclient.block.BlockManager;
 import itsu.java.minecraftbeclient.level.Level;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -7,10 +8,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.AmbientLight;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.SceneAntialiasing;
-import javafx.scene.SubScene;
+import javafx.scene.*;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.KeyCode;
@@ -75,8 +73,14 @@ public class Controller implements Initializable {
 
         //levelStack.setBackground(new Background(new BackgroundFill(sky, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        final AmbientLight ambientLight = new AmbientLight(Color.rgb(100,100,100));
+        AmbientLight ambientLight = new AmbientLight(Color.rgb(100,100,100));
         level.getChildren().add(ambientLight);
+
+        PointLight pointLight = new PointLight(Color.WHITE);
+        pointLight.setTranslateX(250);
+        pointLight.setTranslateY(0);
+        pointLight.setTranslateZ(-250);
+        level.getChildren().add(pointLight);
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setTranslateZ(-100);
@@ -140,7 +144,7 @@ public class Controller implements Initializable {
     }
 
     public void loadBlocks() {
-        ObservableList<String> items = FXCollections.observableArrayList(GameServer.getBlocks());
+        ObservableList<String> items = FXCollections.observableArrayList(BlockManager.getBlocks());
         inventoryList.setItems(items);
     }
 

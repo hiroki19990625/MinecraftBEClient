@@ -17,9 +17,6 @@ public class Level extends Group {
     public Level(String name) {
         this.name = name;
 
-        AmbientLight ambientLight = new AmbientLight(Color.rgb(50,50,50));
-        this.getChildren().add(ambientLight);
-
         new FlatLevelGenerator().generateLevel(this);
     }
 

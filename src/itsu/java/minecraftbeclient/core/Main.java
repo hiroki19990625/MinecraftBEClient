@@ -7,6 +7,7 @@ import itsu.java.minecraftbeclient.utils.Version;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -20,7 +21,6 @@ public class Main extends Application {
 
         controller = loader.getController();
 
-        TextureManager.init();
         BlockManager.registerBlocks();
 
         controller.loadBlocks();
@@ -32,7 +32,6 @@ public class Main extends Application {
         Scene scene = new Scene(parent, 1024, 768, true, SceneAntialiasing.BALANCED);
         scene.setOnKeyPressed(e -> {
             KeyboardEvent.keyPressed(e);
-            System.out.println(e.getCode());
         });
 
         controller.addChat("MinecraftBE Client v" + Version.VERSION + " - " + level.getName());
