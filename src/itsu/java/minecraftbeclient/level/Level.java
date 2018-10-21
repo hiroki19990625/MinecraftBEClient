@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
+import javafx.scene.PointLight;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -16,6 +17,15 @@ public class Level extends Group {
 
     public Level(String name) {
         this.name = name;
+
+        AmbientLight ambientLight = new AmbientLight(Color.rgb(100,100,100));
+        this.getChildren().add(ambientLight);
+
+        PointLight pointLight = new PointLight(Color.WHITE);
+        pointLight.setTranslateX(240);
+        pointLight.setTranslateY(0);
+        pointLight.setTranslateZ(-250);
+        this.getChildren().add(pointLight);
 
         new FlatLevelGenerator().generateLevel(this);
     }

@@ -6,6 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.scene.*;
@@ -24,11 +25,13 @@ import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.transform.Rotate;
 import javafx.scene.transform.Translate;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class Controller implements Initializable {
+public class Controller {
 
     private static double initX;
     private static double initY;
@@ -51,11 +54,6 @@ public class Controller implements Initializable {
 
     private SubScene levelScene;
 
-    @Override
-    public void initialize(URL url, ResourceBundle bundle) {
-
-    }
-
     public void addChat(String text) {
         chatArea.appendText(text + "\n");
     }
@@ -72,15 +70,6 @@ public class Controller implements Initializable {
         levelScene = new SubScene(level, 1000, 500, false, SceneAntialiasing.BALANCED);
 
         //levelStack.setBackground(new Background(new BackgroundFill(sky, CornerRadii.EMPTY, Insets.EMPTY)));
-
-        AmbientLight ambientLight = new AmbientLight(Color.rgb(100,100,100));
-        level.getChildren().add(ambientLight);
-
-        PointLight pointLight = new PointLight(Color.WHITE);
-        pointLight.setTranslateX(250);
-        pointLight.setTranslateY(0);
-        pointLight.setTranslateZ(-250);
-        level.getChildren().add(pointLight);
 
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setTranslateZ(-100);
@@ -167,6 +156,19 @@ public class Controller implements Initializable {
         } else if (e.getCode() == KeyCode.SPACE) {
             translate.setY(translate.getY() - speed);
 
+        } else if (e.getCode() == KeyCode.E) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Inventory.fxml"));
+                Parent parent = loader.load();
+
+                Scene scene = new Scene(parent);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.showAndWait();
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

@@ -5,14 +5,21 @@ import itsu.java.minecraftbeclient.event.KeyboardEvent;
 import itsu.java.minecraftbeclient.level.Level;
 import itsu.java.minecraftbeclient.utils.Version;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.transform.Rotate;
+import javafx.scene.transform.Translate;
 import javafx.stage.Stage;
 
 public class Main extends Application {
 
     private static Controller controller;
+    private static Scene scene;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -29,10 +36,11 @@ public class Main extends Application {
         controller.setLevel(level);
         GameServer.setLevel(level);
 
-        Scene scene = new Scene(parent, 1024, 768, true, SceneAntialiasing.BALANCED);
-        scene.setOnKeyPressed(e -> {
-            KeyboardEvent.keyPressed(e);
-        });
+        Group group = new Group();
+        group.getChildren().add(level);
+
+        scene = new Scene(group, 1024, 768, true, SceneAntialiasing.BALANCED);
+        scene = WindowSetting.settingWindow(scene);
 
         controller.addChat("MinecraftBE Client v" + Version.VERSION + " - " + level.getName());
 

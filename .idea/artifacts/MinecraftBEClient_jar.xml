@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MinecraftBEClient:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/MinecraftBEClient_jar</output-path>
+    <root id="archive" name="MinecraftBEClient.jar">
+      <element id="module-output" name="MinecraftBEClient" />
+    </root>
+  </artifact>
+</component>
