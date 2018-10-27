@@ -1,6 +1,8 @@
 package itsu.java.minecraftbeclient.core;
 
+import itsu.java.minecraftbeclient.block.blocks.Stone;
 import itsu.java.minecraftbeclient.controller.InventoryController;
+import itsu.java.minecraftbeclient.level.Level;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
@@ -31,7 +33,7 @@ public class WindowSetting {
     private static final double strength = 0.1;
     private static final int speed = 7;
 
-    public static Scene settingWindow(Scene scene) {
+    public static Scene settingWindow(Scene scene, Level level) {
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setTranslateZ(-100);
         camera.setTranslateX(500);
@@ -68,8 +70,8 @@ public class WindowSetting {
                         double x = event.getSceneX();
                         double y = event.getSceneY();
 
-                        rotateX.setAngle(radiusX -= (initY - y) * strength);
-                        rotateY.setAngle(radiusY -= (initX - x) * strength);
+                        rotateX.setAngle(radiusX -= (initY - y) * -strength);
+                        rotateY.setAngle(radiusY -= (initX - x) * -strength);
 
                         initX = event.getSceneX();
                         initY = event.getSceneY();
@@ -77,25 +79,28 @@ public class WindowSetting {
                 }
 
         );
-
+        
         scene.setOnKeyPressed(e -> {
             if (e.getCode() == KeyCode.W) {
-                translate.setZ(translate.getZ() + speed);
+                level.setTranslateZ(level.getTranslateZ() - speed);
 
             } else if (e.getCode() == KeyCode.S) {
-                translate.setZ(translate.getZ() - speed);
+                level.setTranslateZ(level.getTranslateZ() + speed);
 
             } else if (e.getCode() == KeyCode.D) {
-                translate.setX(translate.getX() + speed);
+                level.setTranslateX(level.getTranslateX() - speed);
 
             } else if (e.getCode() == KeyCode.A) {
-                translate.setX(translate.getX() - speed);
+                level.setTranslateX(level.getTranslateX() + speed);
 
             } else if (e.getCode() == KeyCode.SHIFT) {
-                translate.setY(translate.getY() + speed);
+                level.setTranslateY(level.getTranslateY() - speed);
 
             } else if (e.getCode() == KeyCode.SPACE) {
-                translate.setY(translate.getY() - speed);
+                level.setTranslateY(level.getTranslateY() + speed);
+
+            } else if (e.getCode() == KeyCode.Q) {
+                rotateY.setAngle(rotateY.getAngle() + 10);
 
             } else if (e.getCode() == KeyCode.E) {
                 try {

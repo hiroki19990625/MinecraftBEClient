@@ -1,11 +1,13 @@
 package itsu.java.minecraftbeclient.core;
 
 import itsu.java.minecraftbeclient.block.BlockManager;
+import itsu.java.minecraftbeclient.block.blocks.Stone;
 import itsu.java.minecraftbeclient.level.Level;
 import itsu.java.minecraftbeclient.utils.Version;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -32,7 +34,7 @@ public class Main extends Application {
         group.getChildren().add(level);
 
         scene = new Scene(group, 1024, 768, true, SceneAntialiasing.BALANCED);
-        scene = WindowSetting.settingWindow(scene);
+        scene = WindowSetting.settingWindow(scene, level);
 
         controller.addChat("MinecraftBE Client v" + Version.VERSION + " - " + level.getName());
 
