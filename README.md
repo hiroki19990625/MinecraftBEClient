@@ -1,4 +1,4 @@
 # MinecraftBEClient
 Minecraft BE Server client project in JavaFX
 
-<a href="https://twitter.com/itsu_dev/status/1053595771642073088">https://twitter.com/itsu_dev/status/1053595771642073088</a>
+<a href="https://twitter.com/itsu_dev/status/1053940251620593664">https://twitter.com/itsu_dev/status/1053940251620593664</a>
