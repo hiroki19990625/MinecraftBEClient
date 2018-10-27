@@ -1,4 +1,6 @@
-package itsu.java.minecraftbeclient.level;
+package itsu.java.minecraftbeclient.level.generator;
+
+import itsu.java.minecraftbeclient.level.Level;
 
 public abstract class LevelGenerator {
 

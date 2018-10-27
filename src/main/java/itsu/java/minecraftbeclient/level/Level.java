@@ -1,15 +1,15 @@
 package itsu.java.minecraftbeclient.level;
 
 import itsu.java.minecraftbeclient.block.Block;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import itsu.java.minecraftbeclient.level.generator.FlatLevelGenerator;
+import itsu.java.minecraftbeclient.utils.MinecraftBEMath;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
 import javafx.scene.PointLight;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Level extends Group {
 
@@ -39,11 +39,36 @@ public class Level extends Group {
     }
 
     public Block getBlock(double x, double y, double z) {
-        return null;//this.get
+
+        return null;
     }
 
     public String getName() {
         return name;
+    }
+
+    public Block[] getCollisionBlocks(Block block) {
+        int minX = MinecraftBEMath.floorDouble(this.getBoundsInParent().getMinX());
+        int minY = MinecraftBEMath.floorDouble(this.getBoundsInParent().getMinY());
+        int minZ = MinecraftBEMath.floorDouble(this.getBoundsInParent().getMinZ());
+        int maxX = MinecraftBEMath.ceilDouble(this.getBoundsInParent().getMaxX());
+        int maxY = MinecraftBEMath.ceilDouble(this.getBoundsInParent().getMaxY());
+        int maxZ = MinecraftBEMath.ceilDouble(this.getBoundsInParent().getMaxZ());
+
+        List<Block> collides = new ArrayList<>();
+
+        /*
+        for (int z = minZ; z <= maxZ; ++z) {
+            for (int x = minX; x <= maxX; ++x) {
+                for (int y = minY; y <= maxY; ++y) {
+                    Block block = this.getBlock(this.temporalVector.setComponents(x, y, z));
+                    if (block.getBlockId() != 0 && block.collidesWithBB(bb)) {
+                        collides.add(block);
+                    }
+                }
+            }
+        }*/
+        return null;
     }
 
 }

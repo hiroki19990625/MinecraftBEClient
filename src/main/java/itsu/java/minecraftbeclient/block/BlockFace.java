@@ -1,4 +1,4 @@
-package itsu.java.minecraftbeclient.block.blocks;
+package itsu.java.minecraftbeclient.block;
 
 import javafx.geometry.Point3D;
 
@@ -53,20 +53,4 @@ public class BlockFace {
         return -1;
     }
 
-    private static double getMinusNearestValue(double[] values) {
-        double num;
-        double abs;
-
-        num = 0;
-        abs = Math.abs(values[0]+ 5.0);
-
-        for (int i = 0; i < values.length; ++i) {
-            if (Math.abs(values[i] + 5.0) < abs) {
-                num = i;
-                abs = Math.abs(values[i] + 5.0);
-            }
-        }
-
-        return num;
-    }
 }

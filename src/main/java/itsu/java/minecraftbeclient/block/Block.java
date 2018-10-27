@@ -1,6 +1,5 @@
 package itsu.java.minecraftbeclient.block;
 
-import itsu.java.minecraftbeclient.block.blocks.BlockFace;
 import itsu.java.minecraftbeclient.block.blocks.Dirt;
 import itsu.java.minecraftbeclient.block.blocks.Sand;
 import itsu.java.minecraftbeclient.block.blocks.Stone;
@@ -12,10 +11,11 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point3D;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.PickResult;
 import javafx.scene.shape.Box;
+import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
 public class Block extends Box {
@@ -30,6 +30,8 @@ public class Block extends Box {
 
     private Texture texture;
     private Level level;
+
+    private Timeline timer = null;
 
     public Block(int id, int meta, String name, Level level) {
         this(id, meta, 0, 0, 0, name, level);
@@ -84,17 +86,22 @@ public class Block extends Box {
     }
 
     private void startTick() {
-        Timeline timer = new Timeline(new KeyFrame(Duration.millis(100), new EventHandler<ActionEvent>(){
+        timer = new Timeline(new KeyFrame(Duration.millis(100), new EventHandler<ActionEvent>(){
             @Override
             public void handle(ActionEvent event) {
-                if (Block.this instanceof Fallable) {
-                    level.removeBlock(Block.this);
+                if (Block.this instanceof BlockFallable) {
+                    Block block = Block.this;
+
+                    level.removeBlock(block);
 
                     setY(Block.this.getY() + 1);
-                    level.setBlock(Block.this);
+                    level.setBlock(block);
 
-                    if (getY() > 50) {
-                        level.removeBlock(Block.this);
+                    //System.out.println(Shape.intersect());
+
+                    if (getY() >= 50) {
+                        level.removeBlock(block);
+                        timer.stop();
                     }
                 }
             }

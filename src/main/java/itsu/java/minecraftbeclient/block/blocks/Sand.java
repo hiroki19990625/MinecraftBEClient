@@ -2,11 +2,11 @@ package itsu.java.minecraftbeclient.block.blocks;
 
 import itsu.java.minecraftbeclient.block.Block;
 import itsu.java.minecraftbeclient.block.BlockID;
-import itsu.java.minecraftbeclient.block.Fallable;
+import itsu.java.minecraftbeclient.block.BlockFallable;
 import itsu.java.minecraftbeclient.core.GameServer;
 import itsu.java.minecraftbeclient.level.Level;
 
-public class Sand extends Block implements Fallable {
+public class Sand extends Block implements BlockFallable {
 
     public Sand() {
         this(0, 0, 0, GameServer.getLevel());

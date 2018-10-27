@@ -35,7 +35,10 @@ public class WindowSetting {
         PerspectiveCamera camera = new PerspectiveCamera(true);
         camera.setTranslateZ(-100);
         camera.setTranslateX(500);
+        camera.setTranslateY(-200);
         camera.setFarClip(10000);
+        camera.setNearClip(0.1);
+        camera.setFieldOfView(50);
 
         camera.getTransforms().addAll(
                 rotateX = new Rotate(0.0, Rotate.X_AXIS),
