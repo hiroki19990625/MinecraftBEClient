@@ -6,16 +6,14 @@ import itsu.java.minecraftbeclient.block.blocks.Stone;
 import itsu.java.minecraftbeclient.core.GameServer;
 import itsu.java.minecraftbeclient.event.EventManager;
 import itsu.java.minecraftbeclient.level.Level;
-import itsu.java.minecraftbeclient.utils.Texture;
+import itsu.java.minecraftbeclient.math.BlockFace;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Bounds;
 import javafx.geometry.Point3D;
 import javafx.scene.input.MouseButton;
 import javafx.scene.shape.Box;
-import javafx.scene.shape.Shape;
 import javafx.util.Duration;
 
 public class Block extends Box {

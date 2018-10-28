@@ -1,7 +1,7 @@
 package itsu.java.minecraftbeclient.event;
 
 import itsu.java.minecraftbeclient.block.Block;
-import itsu.java.minecraftbeclient.block.BlockFace;
+import itsu.java.minecraftbeclient.math.BlockFace;
 import itsu.java.minecraftbeclient.core.GameServer;
 import itsu.java.minecraftbeclient.level.Level;
 

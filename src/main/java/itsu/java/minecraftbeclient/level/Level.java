@@ -2,7 +2,7 @@ package itsu.java.minecraftbeclient.level;
 
 import itsu.java.minecraftbeclient.block.Block;
 import itsu.java.minecraftbeclient.level.generator.FlatLevelGenerator;
-import itsu.java.minecraftbeclient.utils.MinecraftBEMath;
+import itsu.java.minecraftbeclient.math.MinecraftBEMath;
 import javafx.scene.AmbientLight;
 import javafx.scene.Group;
 import javafx.scene.PointLight;
