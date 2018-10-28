@@ -35,9 +35,9 @@ public class WindowSetting {
 
     public static Scene settingWindow(Scene scene, Level level) {
         PerspectiveCamera camera = new PerspectiveCamera(true);
-        camera.setTranslateZ(-100);
-        camera.setTranslateX(500);
-        camera.setTranslateY(-200);
+        camera.setTranslateZ(100);
+        camera.setTranslateX(200);
+        camera.setTranslateY(-20);
         camera.setFarClip(10000);
         camera.setNearClip(0.1);
         camera.setFieldOfView(50);
@@ -98,9 +98,6 @@ public class WindowSetting {
 
             } else if (e.getCode() == KeyCode.SPACE) {
                 level.setTranslateY(level.getTranslateY() + speed);
-
-            } else if (e.getCode() == KeyCode.Q) {
-                rotateY.setAngle(rotateY.getAngle() + 10);
 
             } else if (e.getCode() == KeyCode.E) {
                 try {
